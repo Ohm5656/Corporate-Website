@@ -19,7 +19,7 @@ import { CountUpAnimation } from "../components/CountUpAnimation";
 import { OurCustomers } from "../components/OurCustomers";
 import { projects } from "../../data/projects";
 import myImage from "../../assets/picture_1.jpg";
-import hero from "../../assets/company.png";
+import hero from "../../assets/company-hero.jpg";
 
 export function HomePage() {
 const services = [
@@ -204,7 +204,7 @@ const featuredProjects = featuredProjectIds
       </section>
 
 {/* About Section */}
-<SectionWrapper id="about" className="py-20 bg-white">
+<SectionWrapper id="about" className="py-20 bg-white content-auto">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
       <motion.div
@@ -307,7 +307,7 @@ const featuredProjects = featuredProjectIds
       </section>
 
       {/* Services Section */}
-      <SectionWrapper id="services" className="py-20 bg-white">
+      <SectionWrapper id="services" className="py-20 bg-white content-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <motion.h2
@@ -364,7 +364,7 @@ const featuredProjects = featuredProjectIds
       </SectionWrapper>
 
       {/* Projects Preview Section */}
-      <SectionWrapper id="projects" className="py-20 bg-white">
+      <SectionWrapper id="projects" className="py-20 bg-white content-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 md:mb-16">
             <motion.h2
@@ -417,7 +417,7 @@ const featuredProjects = featuredProjectIds
       {/* Professional Standards Section */}
 <SectionWrapper
   id="standards"
-  className="py-20 bg-white"
+  className="py-20 bg-white content-auto"
 >
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     

@@ -1,5 +1,1 @@
-/* Google Fonts - Sarabun for Thai and English */
-@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap');
-
-/* Google Fonts - Inter as fallback for English */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* Fonts are loaded from index.html to avoid CSS @import waterfalls. */

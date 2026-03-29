@@ -182,7 +182,7 @@ const values = [
               <div className="absolute inset-0 bg-[radial-gradient(circle,transparent_45%,rgba(0,0,0,0.55)_100%)]" />
 
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                <p className="text-white text-lg md:text-2xl text-center font-bold italic leading-tight drop-shadow-[0_6px_30px_rgba(0,0,0,0.6)]">
+                <p className="text-white text-lg md:text-1xl text-center font-bold italic leading-tight drop-shadow-[0_6px_30px_rgba(0,0,0,0.6)]">
                   “ความพึงพอใจของลูกค้า คือหัวใจหลักของงานเรา”
                 </p>
               </div>

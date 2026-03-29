@@ -45,7 +45,7 @@ export function ProjectCard({
             src={project.coverImage}
             alt={project.titleTh}
             className="h-full w-full object-cover transition-all duration-700 ease-out group-hover:scale-[1.04]"
-            loading={index < 6 ? "eager" : "lazy"}
+            loading={index < 3 ? "eager" : "lazy"}
           />
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />

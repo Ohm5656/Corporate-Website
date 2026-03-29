@@ -85,11 +85,25 @@ export default function App() {
   useEffect(() => {
     document.documentElement.style.scrollBehavior = 'smooth';
 
-    const timeout = setTimeout(prefetchPages, 1000);
+    let idleCallbackId: number | null = null;
+    let timeoutId: number | null = null;
+
+    if ('requestIdleCallback' in window) {
+      idleCallbackId = window.requestIdleCallback(prefetchPages, { timeout: 1800 });
+    } else {
+      timeoutId = window.setTimeout(prefetchPages, 1000);
+    }
 
     return () => {
       document.documentElement.style.scrollBehavior = 'auto';
-      clearTimeout(timeout);
+
+      if (idleCallbackId !== null && 'cancelIdleCallback' in window) {
+        window.cancelIdleCallback(idleCallbackId);
+      }
+
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId);
+      }
     };
   }, []);
 

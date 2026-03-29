@@ -28,7 +28,7 @@ export function OurCustomers() {
   ];
 
   return (
-    <SectionWrapper id="customers" className="py-24 bg-white border-t border-gray-100">
+    <SectionWrapper id="customers" className="py-24 bg-white border-t border-gray-100 content-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.h2

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { Phone, Mail, MapPin, MessageCircle, CheckCircle2 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -15,6 +15,14 @@ export function NewFooter() {
   const [showToast, setShowToast] = useState(false);
   const [copiedText, setCopiedText] = useState('');
   const toastTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) {
+        window.clearTimeout(toastTimerRef.current);
+      }
+    };
+  }, []);
 
   const showCopyToast = (value: string) => {
     setCopiedText(value);
@@ -138,7 +146,7 @@ export function NewFooter() {
     { path: '/about', label: 'ประวัติความเป็นมา' },
     { id: 'services', label: 'บริการ' },
     { id: 'projects', label: 'โครงการ' },
-    { id: 'certifications', label: 'ใบรับรอง' },
+    { id: 'standards', label: 'ใบรับรอง' },
     { id: 'customers', label: 'ลูกค้า' },
   ];
 

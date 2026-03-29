@@ -1,6 +1,7 @@
 @import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+
 .thai-text {
   overflow-wrap: break-word;
   word-break: normal;
@@ -9,4 +10,29 @@
 
 .thai-balance {
   max-width: 65ch;
+}
+
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
+.ntp-section-kicker {
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.ntp-mesh-bg {
+  background:
+    radial-gradient(circle at top left, rgba(240, 74, 58, 0.16), transparent 34%),
+    radial-gradient(circle at top right, rgba(26, 58, 107, 0.12), transparent 36%),
+    linear-gradient(180deg, #ffffff 0%, #f5f8fc 100%);
+}
+
+.ntp-grid-glow {
+  background-image:
+    linear-gradient(rgba(26, 58, 107, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 58, 107, 0.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.75), transparent 82%);
 }

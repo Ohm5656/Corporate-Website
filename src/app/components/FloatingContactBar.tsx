@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Phone, Mail, MessageCircle, Facebook, CheckCircle2 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -9,6 +9,14 @@ export function FloatingContactBar() {
   const [showToast, setShowToast] = useState(false);
   const [copiedText, setCopiedText] = useState('');
   const toastTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) {
+        window.clearTimeout(toastTimerRef.current);
+      }
+    };
+  }, []);
 
   const showCopyToast = (value: string) => {
     setCopiedText(value);

@@ -17,7 +17,8 @@ export function Navbar() {
       setIsScrolled(window.scrollY > 20);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -48,7 +49,7 @@ export function Navbar() {
     { label: 'เกี่ยวกับเรา', section: 'about' },
     { label: 'บริการ', section: 'services' },
     { label: 'โครงการ', section: 'projects' },
-    { label: 'ใบรับรอง', section: 'certifications' },
+    { label: 'ใบรับรอง', section: 'standards' },
     { label: 'ลูกค้า', section: 'customers' },
   ];
 
