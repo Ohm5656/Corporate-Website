@@ -1,0 +1,12 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+.thai-text {
+  overflow-wrap: break-word;
+  word-break: normal;
+  line-break: loose;
+}
+
+.thai-balance {
+  max-width: 65ch;
+}
