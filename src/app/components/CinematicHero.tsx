@@ -9,6 +9,13 @@ import {
 } from './cinematicExperience';
 
 const ASSETS = `${import.meta.env.BASE_URL}cinematic/`;
+const HIGH_QUALITY_MEDIA = '(min-width: 1200px)';
+
+type NetworkConnection = EventTarget & {
+  downlink?: number;
+  effectiveType?: string;
+  saveData?: boolean;
+};
 
 export function CinematicHero() {
   const rootRef = useRef<HTMLElement>(null);
@@ -23,7 +30,7 @@ export function CinematicHero() {
     const progress = root.querySelector<HTMLElement>('.cinema-progress')!;
     const reducedMotion = matchMedia(CINEMATIC_REDUCED_MOTION_QUERY);
     const phoneLayout = matchMedia(CINEMATIC_PHONE_QUERY);
-    const connection = (navigator as Navigator & { connection?: EventTarget }).connection;
+    const connection = (navigator as Navigator & { connection?: NetworkConnection }).connection;
     let disposed = false, active = false, completed = false, ready = false;
     let userPaused = false, blocked = false, playPending = false, generation = 0;
     let started = false, bufferDeadlineReached = false, bufferTimer = 0;
@@ -153,11 +160,14 @@ export function CinematicHero() {
       root.dataset.mode = 'motion'; root.dataset.load = 'loading';
       root.removeAttribute('data-ready'); root.removeAttribute('data-still-ready');
       progress.style.transform = 'scaleX(0)'; phase('loading'); reveal(false);
-      root.dataset.asset = 'desktop';
+      const highQuality = matchMedia(HIGH_QUALITY_MEDIA).matches
+        && connection?.effectiveType === '4g'
+        && (connection.downlink ?? 0) >= 15;
+      root.dataset.asset = highQuality ? 'desktop-hq' : 'desktop';
       video.muted = video.defaultMuted = true;
       video.autoplay = false; video.loop = false; video.preload = 'auto';
       video.poster = `${ASSETS}hero-poster.webp`;
-      video.src = `${ASSETS}hero-intro.mp4`;
+      video.src = `${ASSETS}${highQuality ? 'hero-intro-hq.mp4' : 'hero-intro.mp4'}`;
       // A bounded wait also works when a browser only preloads metadata.
       bufferTimer = window.setTimeout(() => {
         bufferDeadlineReached = true; synchronize();
