@@ -5,7 +5,7 @@ import {
   Download,
   X,
 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m as motion } from "motion/react";
 import { useCallback, useEffect } from "react";
 
 import { ImageWithFallback } from "./figma/ImageWithFallback";
@@ -157,6 +157,8 @@ export function ImageLightbox({
                             src={activeImage}
                             alt={`${projectTitle} ${activeIndex + 1}`}
                             className="max-h-[72vh] w-auto max-w-full rounded-[26px] object-contain"
+                            sizes="90vw"
+                            loading="eager"
                           />
                         </motion.div>
                       </AnimatePresence>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m as motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import logo from "../../assets/9d68ce4323e20f2687da32ca763fe4e87c181bcf.png";
 

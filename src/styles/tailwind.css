@@ -1,4 +1,6 @@
 @import 'tailwindcss' source(none);
 @source '../**/*.{js,ts,jsx,tsx}';
+/* Unused UI templates stay available in source without shipping their utilities. */
+@source not '../app/components/ui';
 
 @import 'tw-animate-css';

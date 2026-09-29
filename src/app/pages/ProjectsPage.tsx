@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { m as motion } from "motion/react";
 import { ProjectGalleryGrid } from "../components/ProjectGalleryGrid";
 import { projects } from "../../data/projects";
 
@@ -9,7 +9,7 @@ export function ProjectsPage() {
       <section className="bg-[#1a3a6b] py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-4xl md:text-5xl text-white mb-6 font-bold"
@@ -18,7 +18,7 @@ export function ProjectsPage() {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl text-white/90 max-w-5xl mx-auto"
@@ -29,7 +29,7 @@ export function ProjectsPage() {
       </section>
 
       {/* Projects Grid */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-24 bg-[#f6f8fa]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0 }}

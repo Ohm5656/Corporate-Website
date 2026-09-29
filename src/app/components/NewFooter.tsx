@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'motion/react';
+import { m as motion } from 'motion/react';
 import { Phone, Mail, MapPin, MessageCircle, CheckCircle2 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import logo from "../../assets/9d68ce4323e20f2687da32ca763fe4e87c181bcf.png";
+const logo = `${import.meta.env.BASE_URL}images/logo.webp`;
 
 export function NewFooter() {
   const location = useLocation();
@@ -172,6 +172,9 @@ export function NewFooter() {
               >
                 <div className="mb-4 bg-white p-2 inline-block rounded-lg shadow-sm">
                   <img
+                    width={192}
+                    height={192}
+                    loading="lazy"
                     src={logo}
                     alt="NTP Electric and Engineering"
                     className="h-16 w-auto"

@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { m as motion, AnimatePresence } from 'motion/react';
 
-import logo from "../../assets/9d68ce4323e20f2687da32ca763fe4e87c181bcf.png";
+const logo = `${import.meta.env.BASE_URL}images/logo.webp`;
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(() => window.scrollY > 0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === '/';
+  const transparentOnHero = isHomePage && !isScrolled;
+  const navigationText = transparentOnHero ? 'text-white' : 'text-gray-700';
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 0);
     };
 
     handleScroll();
@@ -55,15 +57,15 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md' : 'bg-white/95 backdrop-blur-sm'
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+        isScrolled ? 'bg-white shadow-md' : 'bg-transparent shadow-none'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img src={logo} alt="NTP Electric and Engineering" className="h-16 w-auto" />
+            <img src={logo} width={192} height={192} alt="NTP Electric and Engineering" className="h-16 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -72,7 +74,7 @@ export function Navbar() {
               <button
                 key={item.section}
                 onClick={() => scrollToSection(item.section)}
-                className="text-gray-700 hover:text-[#dc2626] transition-colors font-medium"
+                className={`${navigationText} hover:text-[#dc2626] transition-colors font-medium`}
               >
                 {item.label}
               </button>
@@ -88,7 +90,9 @@ export function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-gray-700 hover:text-[#dc2626] transition-colors"
+            aria-label="เปิดเมนูนำทาง"
+            aria-expanded={isMobileMenuOpen}
+            className={`lg:hidden p-2 ${navigationText} hover:text-[#dc2626] transition-colors`}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -107,7 +111,7 @@ export function Navbar() {
           >
             <div className="flex justify-between items-center h-20 px-4 sm:px-6">
               <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
-                <img src={logo} alt="NTP Electric" className="h-16 w-auto" />
+                <img src={logo} width={192} height={192} alt="NTP Electric" className="h-16 w-auto" />
               </Link>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}

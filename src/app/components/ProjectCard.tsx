@@ -1,86 +1,70 @@
-import { ArrowUpRight, Images } from "lucide-react";
-import { motion } from "motion/react";
+import { ArrowRight, Images, MapPin } from 'lucide-react';
+import { memo } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-import { Project } from "../../data/projects";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
+import type { Project } from '../../data/projects';
+import { ImageWithFallback } from './figma/ImageWithFallback';
+import { rememberScrollPosition } from './RouteScrollRestoration';
+import { warmProjectDetail } from '../pages/loadProjectDetail';
 
 interface ProjectCardProps {
   project: Project;
-  index: number;
-  onClick: (project: Project) => void;
 }
 
-export function ProjectCard({
-  project,
-  index,
-  onClick,
-}: ProjectCardProps) {
+export const ProjectCard = memo(function ProjectCard({ project }: ProjectCardProps) {
+  const location = useLocation();
+
   return (
-    <motion.button
-      type="button"
-      whileHover={{ y: -6 }}
-      whileTap={{ scale: 0.985 }}
-      transition={{ duration: 0.24 }}
-      onClick={() => onClick(project)}
-      aria-label={`เปิดแกลเลอรีโครงการ ${project.titleTh}`}
-      aria-haspopup="dialog"
-      className="group relative overflow-hidden rounded-[30px] bg-white text-left shadow-[0_18px_50px_-24px_rgba(15,23,42,0.16),0_8px_20px_-12px_rgba(15,23,42,0.08)] ring-1 ring-slate-200/60 transition-all duration-300 hover:shadow-[0_28px_80px_-30px_rgba(15,23,42,0.22),0_16px_30px_-18px_rgba(15,23,42,0.12)] hover:ring-slate-200/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dc2626] focus-visible:ring-offset-4"
+    <Link
+      id={`project-card-${project.id}`}
+      to={`/projects/${project.id}`}
+      state={{ projectOrigin: { path: location.pathname + location.search + location.hash } }}
+      onClick={event => {
+        if (!event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey && event.button === 0) {
+          rememberScrollPosition(location.key, event.currentTarget);
+        }
+      }}
+      onPointerEnter={warmProjectDetail}
+      onFocus={warmProjectDetail}
+      aria-label={`ดูรายละเอียดและภาพผลงาน ${project.titleTh}`}
+      className="ntp-project-card group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#dc2626] focus-visible:ring-offset-4"
     >
-      <div className="pointer-events-none absolute inset-0 rounded-[30px] bg-gradient-to-br from-white via-white to-slate-50/80" />
-
-      <div className="relative overflow-hidden rounded-t-[30px]">
-        <div className="absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-3 p-5">
-          <span className="rounded-full border border-white/70 bg-white/95 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-[#1a3a6b] shadow-sm backdrop-blur-md">
-            {project.categoryTh}
-          </span>
-
-          <span className="inline-flex items-center gap-1 rounded-full border border-[#1a3a6b]/10 bg-[#1a3a6b]/88 px-3 py-1.5 text-xs font-medium text-white shadow-sm backdrop-blur-md">
-            <Images size={14} />
-            {project.images.length}
-          </span>
-        </div>
-
-        <div className="relative h-72 overflow-hidden bg-slate-100">
-          <ImageWithFallback
-            src={project.coverImage}
-            alt={project.titleTh}
-            className="h-full w-full object-cover transition-all duration-700 ease-out group-hover:scale-[1.04]"
-            loading={index < 3 ? "eager" : "lazy"}
-          />
-
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-transparent opacity-60" />
-          <div className="absolute inset-0 shadow-[inset_0_-60px_80px_-20px_rgba(0,0,0,0.6)]" />
-        </div>
+      <div className="relative aspect-[3/2] overflow-hidden bg-slate-100">
+        <ImageWithFallback
+          src={project.coverImage}
+          alt={project.titleTh}
+          className="ntp-project-cover h-full w-full object-cover"
+          sizes="(min-width: 1280px) 384px, (min-width: 768px) calc((100vw - 96px) / 2), calc(100vw - 32px)"
+        />
+        <span className="absolute left-4 top-4 max-w-[calc(100%-32px)] rounded-full bg-[#1a3a6b] px-3.5 py-2 text-xs font-semibold text-white sm:text-sm">
+          {project.categoryTh}
+        </span>
       </div>
 
-      <div className="relative space-y-4 p-6">
-        <div className="flex items-start justify-between gap-4">
-          <div className="space-y-2">
-            <h3 className="text-xl font-semibold tracking-tight text-[#1a3a6b]">
-              {project.titleTh}
-            </h3>
-
-            <p className="line-clamp-3 text-sm leading-7 text-slate-600 sm:text-[15px]">
-              {project.descriptionTh}
-            </p>
-          </div>
-
-          <div className="mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#1a3a6b]/10 bg-slate-50 text-[#1a3a6b] transition-colors duration-300 group-hover:border-[#dc2626]/15 group-hover:bg-[#dc2626] group-hover:text-white">
-            <ArrowUpRight size={18} />
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between border-t border-slate-100/90 pt-4 text-sm">
-          <span className="text-slate-500">
-            {project.locationTh ?? project.location}
+      <div className="flex flex-1 flex-col px-5 pb-5 pt-5 sm:px-6 sm:pb-6 sm:pt-6">
+        {(project.locationTh || project.location) && (
+          <p className="mb-3 flex items-start gap-2 text-sm leading-6 text-slate-500">
+            <MapPin size={17} className="mt-0.5 shrink-0 text-[#dc2626]" aria-hidden="true" />
+            <span>{project.locationTh ?? project.location}</span>
+          </p>
+        )}
+        <h3 className="mb-3 text-xl font-semibold leading-[1.65] text-slate-900">
+          {project.titleTh}
+        </h3>
+        <p className="mb-5 line-clamp-2 text-sm leading-7 text-slate-600 sm:text-[15px]">
+          {project.descriptionTh}
+        </p>
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-t border-slate-100 pt-4">
+          <span className="inline-flex items-center gap-2 text-sm font-semibold leading-6 text-[#1a3a6b]">
+            ดูรายละเอียดโครงการ
+            <ArrowRight size={17} className="ntp-project-arrow shrink-0" aria-hidden="true" />
           </span>
-
-          <span className="font-medium text-[#1a3a6b]">
-            {project.year}
+          <span className="inline-flex items-center gap-1.5 text-xs text-slate-500">
+            <Images size={15} aria-hidden="true" />
+            {project.images.length} ภาพ
           </span>
         </div>
       </div>
-    </motion.button>
+    </Link>
   );
-}
+});

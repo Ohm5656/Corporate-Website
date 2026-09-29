@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { m as motion } from "motion/react";
 import {
   ArrowRight,
   Zap,
@@ -18,8 +18,8 @@ import { ProjectGalleryGrid } from "../components/ProjectGalleryGrid";
 import { CountUpAnimation } from "../components/CountUpAnimation";
 import { OurCustomers } from "../components/OurCustomers";
 import { projects } from "../../data/projects";
-import myImage from "../../assets/picture_1.jpg";
-import hero from "../../assets/company-hero.jpg";
+import { CinematicHero } from "../components/CinematicHero";
+import { ConvergingAbout } from "../components/ConvergingAbout";
 
 export function HomePage() {
 const services = [
@@ -110,108 +110,19 @@ const featuredProjects = featuredProjectIds
       suffix: "+",
       label: "โครงการที่ดำเนินการสำเร็จ",
     },
-    { number: 99, suffix: "%", label: "ความไว้วางใจจากลูกค้าในทุกโครงการ" },
+    { number: 100, suffix: "%", label: "ความไว้วางใจจากลูกค้าในทุกโครงการ" },
     { number: 10, suffix: "+", label: "ประสบการณ์มากกว่า" },
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section
-        id="home"
-        className="relative min-h-screen flex items-center"
-      >
-        <div className="absolute inset-0 overflow-hidden">
-          <ImageWithFallback
-            src={hero}
-            alt="Electrical Engineering Facility"
-            className="w-full h-full object-cover"
-            loading="eager"
-            fetchPriority="high"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#1a3a6b]/90 to-[#1a3a6b]/70" />
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-3xl"
-          >
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight font-bold"
-            >
-              ความเป็นเลิศด้านวิศวกรรมไฟฟ้า
-              <br />
-              ในทุกโครงการ
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-base sm:text-xl md:text-2xl text-white/90 mb-8"
-            >
-              ออกแบบ ติดตั้ง งานระบบไฟฟ้าโรงงาน และ งานระบบไฟฟ้าห้องเย็น 
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4"
-            >
-              <button
-                onClick={() => {
-                  const element =
-                    document.getElementById("services");
-                  if (element) {
-                    const navHeight = 80;
-                    const elementPosition =
-                      element.getBoundingClientRect().top;
-                    const offsetPosition =
-                      elementPosition +
-                      window.pageYOffset -
-                      navHeight;
-                    window.scrollTo({
-                      top: offsetPosition,
-                      behavior: "smooth",
-                    });
-                  }
-                }}
-                className="bg-[#dc2626] hover:bg-[#b91c1c] text-white px-8 py-4 rounded-md transition-colors flex items-center justify-center gap-2 group"
-              >
-                บริการของเรา
-                <ArrowRight
-                  className="group-hover:translate-x-1 transition-transform"
-                  size={20}
-                />
-              </button>
-
-              <Link
-                to="/contact"
-                className="bg-white hover:bg-gray-100 text-[#1a3a6b] px-8 py-4 rounded-md transition-colors text-center"
-              >
-                ติดต่อเรา
-              </Link>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
+    <div className="min-h-screen ntp-cinematic-home">
+      <CinematicHero />
 
 {/* About Section */}
 <SectionWrapper id="about" className="py-20 bg-white content-auto">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
-      <motion.div
-        initial={{ opacity: 0, x: -30 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+    <ConvergingAbout>
+      <div data-about-part="copy"
         className="max-w-3xl"
       >
         <div className="mb-2">
@@ -252,14 +163,19 @@ const featuredProjects = featuredProjectIds
             size={18}
           />
         </Link>
-      </motion.div>
+      </div>
 
-      <div className="relative h-[420px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+      <div data-about-part="picture" className="relative h-[420px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
         <ImageWithFallback
-          src={myImage}
+          src="/images/company-home.webp"
+          srcSet="/images/company-home-640.webp 640w, /images/company-home-1024.webp 1024w, /images/company-home.webp 1280w"
+          sizes="(min-width: 1280px) 576px, (min-width: 768px) 45vw, calc(100vw - 32px)"
+          width={1280}
+          height={960}
           alt="Modern Engineering"
           className="w-full h-full object-cover"
-          loading="eager"
+          loading="lazy"
+          fetchPriority="low"
         />
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
@@ -271,12 +187,12 @@ const featuredProjects = featuredProjectIds
           </p>
         </div>
       </div>
-    </div>
+    </ConvergingAbout>
   </div>
 </SectionWrapper>
 
       {/* Stats Section */}
-      <section className="py-20 bg-[#1a3a6b]">
+      <section className="ntp-stats py-20 bg-[#1a3a6b]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/20">
             {stats.map((stat, index) => (
@@ -327,7 +243,7 @@ const featuredProjects = featuredProjectIds
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-xl text-gray-600 max-w-3xl mx-auto"
             >
-              ให้บริการออกแบบและติดตั้งระบบไฟฟ้าสำหรับโรงงานอุตสาหกรรม และระบบไฟฟ้าห้องเย็น <br/>โดยคำนึงถึงมาตรฐาน ความปลอดภัย และความเหมาะสมของการใช้งานในแต่ละโครงการ
+              ให้บริการออกแบบและติดตั้งระบบไฟฟ้า และ ระบบไฟฟ้าห้องเย็นสำหรับโรงงานอุตสาหกรรม
             </motion.p>
           </div>
 
@@ -344,7 +260,7 @@ const featuredProjects = featuredProjectIds
                     duration: 0.5,
                     delay: index * 0.1,
                   }}
-                  className="bg-white border-2 border-gray-300 rounded-lg p-8 shadow-lg hover:shadow-2xl transition-all duration-300 group"
+                  className="ntp-service-card bg-white border-2 border-gray-300 rounded-lg p-8 shadow-lg hover:shadow-2xl transition-all duration-300 group"
                 >
                   <div className="w-16 h-16 bg-[#1a3a6b] rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#dc2626] transition-colors">
                     <Icon className="text-white" size={32} />
@@ -364,7 +280,7 @@ const featuredProjects = featuredProjectIds
       </SectionWrapper>
 
       {/* Projects Preview Section */}
-      <SectionWrapper id="projects" className="py-20 bg-white content-auto">
+      <SectionWrapper id="projects" className="py-20 bg-[#f6f8fa] content-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 md:mb-16">
             <motion.h2

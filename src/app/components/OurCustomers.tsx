@@ -1,30 +1,21 @@
-import { motion } from 'motion/react';
+import { m as motion } from 'motion/react';
 import { SectionWrapper } from './SectionWrapper';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
-import cpLogo from "../../assets/88bf3f31bd74a9fd9d845b4646521b19ff16b93f.png";
-import mayekawaLogo from "../../assets/8af1f773480944f7a152dc7efbcd619a82544e28.png";
-import FandN from "../../assets/F&N.png";
-import Thai_Union from "../../assets/thai_union.png";
-import cpram from "../../assets/cpram.png";
-import cpf from "../../assets/cpf.jpg";
-import betagro from "../../assets/betagro.jpg";
-import nestle from "../../assets/nestle.jpg";
-import cuisine from "../../assets/cuisine.png";
 
 
 
 export function OurCustomers() {
   const mainLogos = [
-    { name: 'CP Group', src: cpLogo },
-    { name: 'Mayekawa', src: mayekawaLogo },
-    { name: 'F&N', src: FandN },
-    { name: 'Thai Union', src: Thai_Union },
-    { name: 'CPRAM', src: cpram },
-    { name: 'CPF', src: cpf },
-    { name: 'Betagro', src: betagro },
-    { name: 'Nestle', src: nestle },
-    { name: 'Cuisine', src: cuisine },
+    { name: 'CP Group', src: '/images/customer-cp.webp', width: 225, height: 225 },
+    { name: 'Mayekawa', src: '/images/customer-mayekawa.webp', width: 360, height: 113 },
+    { name: 'F&N', src: '/images/customer-fn.webp', width: 235, height: 214 },
+    { name: 'Thai Union', src: '/images/customer-thai-union.webp', width: 243, height: 207 },
+    { name: 'CPRAM', src: '/images/customer-cpram.webp', width: 225, height: 225 },
+    { name: 'CPF', src: '/images/customer-cpf.webp', width: 360, height: 203 },
+    { name: 'Betagro', src: '/images/customer-betagro.webp', width: 225, height: 225 },
+    { name: 'Nestle', src: '/images/customer-nestle.webp', width: 323, height: 156 },
+    { name: 'Cuisine', src: '/images/customer-cuisine.webp', width: 200, height: 200 },
   ];
 
   return (
@@ -60,15 +51,16 @@ export function OurCustomers() {
       key={index}
       whileHover={{
         y: -6,
-        boxShadow: "0 18px 35px -12px rgba(0, 0, 0, 0.12)",
       }}
-      className="bg-white p-6 rounded-2xl shadow-md border border-gray-100 flex items-center justify-center h-48 w-full max-w-[420px] transition-all duration-300 cursor-default"
+      className="bg-white p-6 rounded-2xl shadow-md border border-gray-100 flex items-center justify-center h-48 w-full max-w-[420px] cursor-default"
     >
       <ImageWithFallback
         src={logo.src}
         alt={logo.name}
         className="h-35 w-auto object-contain"
-        loading="eager"
+        width={logo.width}
+        height={logo.height}
+        loading="lazy"
       />
     </motion.div>
   ))}

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Phone, Mail, MessageCircle, Facebook, CheckCircle2 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { m as motion } from 'motion/react';
 
 export function FloatingContactBar() {
   const lineNumber = '0813752024';

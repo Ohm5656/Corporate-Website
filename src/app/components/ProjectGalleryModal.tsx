@@ -7,7 +7,7 @@ import {
   Share2,
   X,
 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m as motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 import { Project } from "../../data/projects";
@@ -82,7 +82,7 @@ export function ProjectGalleryModal({
 
               <DialogPrimitive.Content asChild forceMount>
                 <motion.div
-                  className="fixed inset-0 z-[80] overflow-hidden bg-[#f5f8fc] outline-none sm:inset-y-4 sm:left-1/2 sm:w-[min(calc(100vw-2rem),1360px)] sm:-translate-x-1/2 sm:rounded-[30px] sm:border sm:border-white/70 sm:shadow-[0_40px_120px_-48px_rgba(15,23,42,0.35)] lg:inset-y-8 lg:w-[min(calc(100vw-4rem),1360px)]"
+                  className="ntp-gallery-dialog fixed inset-0 z-[80] overflow-hidden bg-[#f5f8fc] outline-none sm:inset-y-4 sm:left-1/2 sm:w-[min(calc(100vw-2rem),1360px)] sm:-translate-x-1/2 sm:rounded-[30px] sm:border sm:border-white/70 sm:shadow-[0_40px_120px_-48px_rgba(15,23,42,0.35)] lg:inset-y-8 lg:w-[min(calc(100vw-4rem),1360px)]"
                   initial={{ opacity: 0, y: 28, scale: 0.985 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 24, scale: 0.985 }}
@@ -179,6 +179,8 @@ export function ProjectGalleryModal({
                               src={project.coverImage}
                               alt={project.titleTh}
                               className="h-full max-h-[340px] w-full object-cover lg:max-h-[400px]"
+                              loading="eager"
+                              sizes="(min-width: 1024px) 400px, calc(100vw - 80px)"
                             />
                           </div>
                         </section>
@@ -215,6 +217,7 @@ export function ProjectGalleryModal({
                                     src={image}
                                     alt={`${project.titleTh} ${index + 1}`}
                                     className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                                    sizes="(min-width: 1280px) 280px, (min-width: 1024px) 30vw, 45vw"
                                   />
                                 </div>
 

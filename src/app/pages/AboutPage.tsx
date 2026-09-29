@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { m as motion } from "motion/react";
 import {
   Target,
   Eye,
@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
-import myImage from "../../assets/picture_2.jpg";
 
 export function AboutPage() {
   const navigate = useNavigate();
@@ -77,7 +76,11 @@ const values = [
       <section className="relative overflow-hidden bg-[#1a3a6b] py-24 md:py-28">
         <div className="absolute inset-0 opacity-100">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop"
+            src="/images/about-background.webp"
+            srcSet="/images/about-background-640.webp 640w, /images/about-background-1024.webp 1024w, /images/about-background.webp 1600w"
+            sizes="100vw"
+            width={1600}
+            height={1067}
             alt="Background"
             className="w-full h-full object-cover"
             loading="eager"
@@ -89,7 +92,7 @@ const values = [
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             className="max-w-4xl mx-auto"
@@ -172,10 +175,15 @@ const values = [
 
             <div className="relative h-[420px] md:h-[520px] rounded-2xl overflow-hidden shadow-2xl">
               <ImageWithFallback
-                src={myImage}
+                src="/images/company-about.webp"
+                srcSet="/images/company-about-640.webp 640w, /images/company-about-1024.webp 1024w, /images/company-about.webp 1280w"
+                sizes="(min-width: 1280px) 576px, (min-width: 1024px) 45vw, calc(100vw - 32px)"
+                width={1280}
+                height={960}
                 alt="NTP Electric and Engineering"
                 className="w-full h-full object-cover"
-                loading="eager"
+                loading="lazy"
+                fetchPriority="low"
               />
 
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />

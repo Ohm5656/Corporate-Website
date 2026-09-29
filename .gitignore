@@ -1,1 +1,4 @@
 node_modules
+
+# Local source archives, browser profile, and cinematic visual checks.
+/projects/ntp-cinematic-review/

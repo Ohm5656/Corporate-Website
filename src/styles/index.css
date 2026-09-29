@@ -2,6 +2,10 @@
 @import './tailwind.css';
 @import './theme.css';
 
+html, body {
+  overflow-x: clip;
+}
+
 .thai-text {
   overflow-wrap: break-word;
   word-break: normal;
@@ -35,4 +39,33 @@
     linear-gradient(90deg, rgba(26, 58, 107, 0.06) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.75), transparent 82%);
+}
+
+.ntp-gallery-dialog { contain: layout paint; }
+
+.ntp-project-card {
+  box-shadow: 0 2px 5px rgba(15, 23, 42, .05);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+.ntp-project-cover { transition: transform 400ms ease; }
+.ntp-project-arrow { transition: transform 220ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  .ntp-project-card:hover {
+    transform: translateY(-4px);
+    border-color: #bcc9d9;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, .08);
+  }
+  .ntp-project-card:hover .ntp-project-cover { transform: scale(1.025); }
+  .ntp-project-card:hover .ntp-project-arrow { transform: translateX(3px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ntp-project-card, .ntp-project-cover, .ntp-project-arrow { transition: none; }
+  .ntp-project-card:hover, .ntp-project-card:hover .ntp-project-cover,
+  .ntp-project-card:hover .ntp-project-arrow { transform: none; }
+}
+@media (pointer: coarse) {
+  /* Keep touch scrolling inexpensive on large fixed surfaces. */
+  [role="dialog"] [class*="backdrop-blur"],
+  [data-state="open"][class*="backdrop-blur"] { backdrop-filter: none; }
+  .ntp-project-card { box-shadow: 0 2px 5px rgba(15,23,42,.05); }
 }
