@@ -1,4 +1,23 @@
 node_modules
+dist
+.agents
+guidelines
+skills-lock.json
+
+# Local source archives, QA files, and generated reports.
+/projects/
+/ATTRIBUTIONS.md
+/CINEMATIC_HERO.md
+/FEATURES.md
+/HERO_AUTOPLAY_REPORT.md
+/IMPLEMENTATION_GUIDE.md
+/PERFORMANCE_AUDIT.md
+/PERFORMANCE_REPORT_UPDATED.md
+/PROJECTS_REDESIGN_REPORT.md
+/PROJECT_STRUCTURE.md
+/QUICK_START.md
+/REFACTOR_SUMMARY.md
+/TESTING_CHECKLIST.md
 
 # Local source archives, browser profile, and cinematic visual checks.
 /projects/ntp-cinematic-review/
