@@ -1,10 +1,14 @@
 import { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowDown, ArrowRight, ArrowUpRight, Pause, Play } from 'lucide-react';
-import { CINEMATIC_CHROME_EVENT, CINEMATIC_REDUCED_MOTION_QUERY, prefersCinematicStill } from './cinematicExperience';
+import {
+  CINEMATIC_CHROME_EVENT,
+  CINEMATIC_PHONE_QUERY,
+  CINEMATIC_REDUCED_MOTION_QUERY,
+  prefersCinematicStill,
+} from './cinematicExperience';
 
 const ASSETS = `${import.meta.env.BASE_URL}cinematic/`;
-const SMALL_MEDIA = '(max-width: 720px), (max-height: 560px) and (pointer: coarse)';
 
 export function CinematicHero() {
   const rootRef = useRef<HTMLElement>(null);
@@ -18,6 +22,7 @@ export function CinematicHero() {
     const content = root.querySelector<HTMLElement>('.cinema-content')!;
     const progress = root.querySelector<HTMLElement>('.cinema-progress')!;
     const reducedMotion = matchMedia(CINEMATIC_REDUCED_MOTION_QUERY);
+    const phoneLayout = matchMedia(CINEMATIC_PHONE_QUERY);
     const connection = (navigator as Navigator & { connection?: EventTarget }).connection;
     let disposed = false, active = false, completed = false, ready = false;
     let userPaused = false, blocked = false, playPending = false, generation = 0;
@@ -59,7 +64,7 @@ export function CinematicHero() {
         watchdog = window.setTimeout(() => fallback(true), 20000);
     };
     const finalStill = () => {
-      const src = `${ASSETS}${matchMedia(SMALL_MEDIA).matches ? 'hero-end-mobile.webp' : 'hero-end.webp'}`;
+      const src = `${ASSETS}${phoneLayout.matches ? 'hero-end-mobile.webp' : 'hero-end.webp'}`;
       if (!finalImage || finalImage.src !== new URL(src, location.href).href) {
         finalImage = new Image(); finalImage.fetchPriority = 'low'; finalImage.src = src;
       }
@@ -148,12 +153,11 @@ export function CinematicHero() {
       root.dataset.mode = 'motion'; root.dataset.load = 'loading';
       root.removeAttribute('data-ready'); root.removeAttribute('data-still-ready');
       progress.style.transform = 'scaleX(0)'; phase('loading'); reveal(false);
-      const small = matchMedia(SMALL_MEDIA).matches;
-      root.dataset.asset = small ? 'mobile' : 'desktop';
+      root.dataset.asset = 'desktop';
       video.muted = video.defaultMuted = true;
       video.autoplay = false; video.loop = false; video.preload = 'auto';
-      video.poster = `${ASSETS}${small ? 'hero-poster-mobile.webp' : 'hero-poster.webp'}`;
-      video.src = `${ASSETS}${small ? 'hero-intro-mobile.mp4' : 'hero-intro.mp4'}`;
+      video.poster = `${ASSETS}hero-poster.webp`;
+      video.src = `${ASSETS}hero-intro.mp4`;
       // A bounded wait also works when a browser only preloads metadata.
       bufferTimer = window.setTimeout(() => {
         bufferDeadlineReached = true; synchronize();
@@ -174,6 +178,7 @@ export function CinematicHero() {
     video.addEventListener('pause', onPause);
     video.addEventListener('error', onError);
     control.addEventListener('click', togglePlayback);
+    phoneLayout.addEventListener('change', reconcile);
     reducedMotion.addEventListener('change', reconcile);
     connection?.addEventListener('change', reconcile);
     document.addEventListener('visibilitychange', synchronize);
@@ -192,6 +197,7 @@ export function CinematicHero() {
       video.removeEventListener('pause', onPause);
       video.removeEventListener('error', onError);
       control.removeEventListener('click', togglePlayback);
+      phoneLayout.removeEventListener('change', reconcile);
       reducedMotion.removeEventListener('change', reconcile);
       connection?.removeEventListener('change', reconcile);
       document.removeEventListener('visibilitychange', synchronize);

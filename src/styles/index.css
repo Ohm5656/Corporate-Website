@@ -21,6 +21,27 @@ html, body {
   contain-intrinsic-size: auto 720px;
 }
 
+.ntp-site-shell { padding-bottom: 0; }
+.ntp-contact-mobile { display: block; }
+.ntp-contact-tablet { display: none; }
+
+@media (min-width: 768px) {
+  .ntp-site-shell { padding-bottom: 6rem; }
+  .ntp-contact-mobile { display: none; }
+  .ntp-contact-tablet { display: block; }
+}
+
+@media (min-width: 1024px) {
+  .ntp-site-shell { padding-bottom: 0; }
+  .ntp-contact-tablet { display: none; }
+}
+
+@media (max-height: 560px) and (pointer: coarse) {
+  .ntp-site-shell { padding-bottom: 0; }
+  .ntp-contact-mobile { display: block; }
+  .ntp-contact-tablet { display: none; }
+}
+
 .ntp-section-kicker {
   letter-spacing: 0.22em;
   text-transform: uppercase;

@@ -111,8 +111,8 @@
   .cinema-description { font-size: 16px; max-width: 32ch; }
   .cinema-bottom { position: relative; inset: auto; }
 }
-@media (max-width: 720px), (max-height: 560px) and (pointer: coarse) {
-  .cinematic-hero { --cinema-end-image: url('/cinematic/hero-end-mobile.webp'); --cinema-opening-image: url('/cinematic/hero-poster-mobile.webp'); }
+@media (max-width: 767px), (max-height: 560px) and (pointer: coarse) {
+  .cinematic-hero { --cinema-end-image: url('/cinematic/hero-end-mobile.webp'); }
 }
 @media (max-width: 400px) {
   .cinema-width { width: calc(100% - 40px); }

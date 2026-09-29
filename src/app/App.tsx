@@ -48,7 +48,7 @@ function AppContent() {
   }, [hideChrome]);
 
   return (
-    <div className="min-h-screen bg-white pb-24 lg:pb-0">
+    <div className="ntp-site-shell min-h-screen bg-white">
       <RouteScrollRestoration />
       <div ref={chromeRef} className="cinematic-site-chrome" data-hidden={hideChrome} aria-hidden={hideChrome || undefined}>
         <Navbar />
