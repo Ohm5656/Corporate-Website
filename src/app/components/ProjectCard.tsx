@@ -1,4 +1,4 @@
-import { ArrowRight, Images, MapPin } from 'lucide-react';
+import { ArrowRight, MapPin } from 'lucide-react';
 import { memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -54,14 +54,10 @@ export const ProjectCard = memo(function ProjectCard({ project }: ProjectCardPro
         <p className="mb-5 line-clamp-2 text-sm leading-7 text-slate-600 sm:text-[15px]">
           {project.descriptionTh}
         </p>
-        <div className="mt-auto flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-t border-slate-100 pt-4">
+        <div className="mt-auto border-t border-slate-100 pt-4">
           <span className="inline-flex items-center gap-2 text-sm font-semibold leading-6 text-[#1a3a6b]">
             ดูรายละเอียดโครงการ
             <ArrowRight size={17} className="ntp-project-arrow shrink-0" aria-hidden="true" />
-          </span>
-          <span className="inline-flex items-center gap-1.5 text-xs text-slate-500">
-            <Images size={15} aria-hidden="true" />
-            {project.images.length} ภาพ
           </span>
         </div>
       </div>
